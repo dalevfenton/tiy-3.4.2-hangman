@@ -90,7 +90,10 @@ body {
     right: 10%;
     background-color: rgba(0, 0, 0, 0.75); }
   .winner .restart-game, .loser .restart-game {
-    top: 200px; }
+    top: 350px; }
+
+.youtube {
+  margin-top: 10px; }
 
 .winner {
   animation-name: gr-bg-fade; }

@@ -125,12 +125,12 @@
 
       if(checkWin()){
         winScreen.classList.add('frame-down');
-        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Restart Game</span>';
+        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Restart Game</span><iframe class="youtube" width="420" height="315" src="https://www.youtube.com/embed/NubH5BDOaD8?start=115&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
 
       }
       if(checkLose()){
         loseScreen.classList.add('frame-down');
-        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Restart Game</span>';
+        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Restart Game</span><iframe class="youtube" width="560" height="315" src="https://www.youtube.com/embed/TnOdAT6H94s?start=128&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
       }
     }else{
       //flash indicator with warning;

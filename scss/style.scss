@@ -21,16 +21,28 @@ body {
 }
 @keyframes rd-bg-fade{
   0% { background-color: rgba(192, 103, 103, 1); }
-  50% { background-color: rgba(57, 106, 66, 1); }
+  50% { background-color: rgba(205, 73, 73, 1); }
   100% { background-color: rgba(192, 103, 103, 1); }
 }
 @keyframes frame-down{
   0% { bottom: 100%; }
   100% { bottom: 0%; }
 }
+// @keyframes flash-red{
+//   0% { color: rgba(192, 103, 103, 1); }
+//   10% { color: rgba(205, 73, 73, 1); }
+//   25% { color: rgba(192, 103, 103, 1); }
+//   100% { color: white; }
+// }
 .indicator{
   padding: 50px 0;
-  transition: .5s ease-in-out;
+  transition: .25s ease-in-out;
+}
+.indicator-red{
+  color: rgba(192, 103, 103, 1);
+}
+.indicator-green{
+  color: rgba(103, 192, 120, 1);
 }
 .guessed-letters{
   max-width: 600px;

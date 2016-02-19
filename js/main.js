@@ -12,15 +12,16 @@
       return false;
     }
   });
-  //get a random word from our list of usable words
-  var randomWord;
-  var alphabetObj = new Alphabet();
+
+  //declare variables
+  var randomWord, numGuesses, alphabetObj;
   var gameBoard = document.querySelector('.game-board');
   var indicator = document.querySelector('.indicator');
   var guessLetters = document.querySelector('.guessed-letters');
   var winScreen = document.querySelector('.winner');
   var loseScreen = document.querySelector('.loser');
-  var numGuesses = 10;
+  var wrong_audio = new Audio('sounds/wrong.mp3');
+  var right_audio = new Audio('sounds/right.mp3');
 
   function initializeGame(){
     randomWord = _.sample(usefulWords);
@@ -37,6 +38,7 @@
     // console.log(alphabetObj);
     console.log(randomWord);
   }
+
   function outputToBoard(  ){
     var outputStr = '';
     _.each( randomWord, function(value, indexVal, arr){
@@ -48,9 +50,13 @@
     });
     gameBoard.innerHTML = outputStr;
   }
+
   function updateIndicator(){
+    //Main Indicator Window
     indicator.innerHTML = 'Number of Guesses Left: ' + numGuesses;
     alphaOutput = '';
+
+    //Update our Alphabet Display with Guessed Letters
     _.each(alphabetObj, function(value, indexVal, arr){
       var prefix = '<span class="letter ';
       if(value.isVowel === true){
@@ -68,6 +74,7 @@
     });
     guessLetters.innerHTML = alphaOutput;
   }
+
   function checkWin(){
     var win = true;
     _.each(randomWord, function(value){
@@ -75,9 +82,10 @@
         win = false;
       }
     });
-    console.log(win);
+    // console.log(win);
     return win;
   }
+
   function checkLose(){
     var lose = false;
     if(numGuesses === 0){
@@ -85,18 +93,36 @@
     }
     return lose;
   }
+
+
   function handleKey (){
     if(event.code.slice(0,3) == "Key"){
       var key = event.code.slice(3,4).toLowerCase();
-      console.log('key is: ' + event.code.slice(3,4));
-      alphabetObj[key].guessed = true;
-      if(randomWord.indexOf(key) > -1){
-        alphabetObj[key].correct = true;
+      // console.log('key is: ' + event.code.slice(3,4));
+      if(alphabetObj[key].guessed === true){
+        //key was already guessed
+        wrong_audio.play();
+        updateIndicator();
+        flashWarn('You Already Guessed That Letter');
       }else{
-        numGuesses--;
+        alphabetObj[key].guessed = true;
+        if(randomWord.indexOf(key) > -1){
+          //key was correct
+          alphabetObj[key].correct = true;
+          right_audio.play();
+          updateIndicator();
+          flashGood('You Were Correct');
+        }else{
+          //letter was incorrect
+          wrong_audio.play();
+          updateIndicator();
+          flashWarn('Sorry That Letter Is Not Correct');
+          numGuesses--;
+        }
       }
-      updateIndicator();
+
       outputToBoard();
+
       if(checkWin()){
         winScreen.classList.add('frame-down');
         winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Restart Game</span>';
@@ -104,11 +130,28 @@
       }
       if(checkLose()){
         loseScreen.classList.add('frame-down');
-        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Restart Game</span>';  }
+        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Restart Game</span>';
       }
-    // }else{
-    //   console.log('not a valid letter');
-    // }
+    }else{
+      //flash indicator with warning;
+      wrong_audio.play();
+      flashWarn('Not A Letter');
+    }
+  }
+
+  function flashWarn( warning ){
+    indicator.innerHTML += '<br>' + warning + '!';
+    indicator.classList.add('indicator-red');
+    window.setTimeout( function(){ indicator.classList.remove('indicator-red'); } , 250);
+    window.setTimeout( function(){ indicator.classList.add('indicator-red'); } , 500);
+    window.setTimeout( function(){ indicator.classList.remove('indicator-red'); } , 750);
+  }
+  function flashGood( success ){
+    indicator.innerHTML += '<br>' + success + '!';
+    indicator.classList.add('indicator-green');
+    window.setTimeout( function(){ indicator.classList.remove('indicator-green'); } , 250);
+    window.setTimeout( function(){ indicator.classList.add('indicator-green'); } , 500);
+    window.setTimeout( function(){ indicator.classList.remove('indicator-green'); } , 750);
   }
   window.addEventListener('keypress', handleKey);
   winScreen.addEventListener('click', initializeGame);

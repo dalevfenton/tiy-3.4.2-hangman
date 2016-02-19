@@ -13,18 +13,50 @@
     }
   });
 
+
+function getRandomWord(){
+  var length =  Math.floor(5*Math.random() + 4);
+  $.ajax({
+    type: "GET",
+    url: ('http://randomword.setgetgo.com/get.php'),
+    data: {
+      len: length
+    },
+    dataType: "jsonp"
+  }).done(function(data){
+    initializeGame( data );
+  });
+}
+getRandomWord();
+// var apiWord = RandomWord();
+  //     function RandomWordComplete(data) {
+  //         console.dir(data);
+  //     }
+  // for(var i=0; i<10; i++){
+  //   RandomWord().done( function(result){
+  //     console.log(result);
+  //   });
+  // }
   //declare variables
   var randomWord, numGuesses, alphabetObj;
+  var gamesWon = 0;
+  var gamesLost = 0;
   var gameBoard = document.querySelector('.game-board');
   var indicator = document.querySelector('.indicator');
   var guessLetters = document.querySelector('.guessed-letters');
   var winScreen = document.querySelector('.winner');
   var loseScreen = document.querySelector('.loser');
+  var restart = document.querySelector('.restart');
   var wrong_audio = new Audio('sounds/wrong.mp3');
   var right_audio = new Audio('sounds/right.mp3');
+  var restart_audio = new Audio('sounds/restart.mp3');
+  document.querySelector('#wins').innerHTML = gamesWon;
+  document.querySelector('#losses').innerHTML = gamesLost;
 
-  function initializeGame(){
-    randomWord = _.sample(usefulWords);
+  function initializeGame(word){
+    console.log(word.Word);
+    restart_audio.play();
+    randomWord =  word.Word;
     alphabetObj = new Alphabet();
     numGuesses = 10;
     outputToBoard();
@@ -36,7 +68,7 @@
     loseScreen.classList.remove('frame-down');
     // loseScreen.style.top = '-50%';
     // console.log(alphabetObj);
-    console.log(randomWord);
+    // console.log(randomWord);
   }
 
   function outputToBoard(  ){
@@ -125,13 +157,18 @@
 
       if(checkWin()){
         winScreen.classList.add('frame-down');
-        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Restart Game</span><iframe class="youtube" width="420" height="315" src="https://www.youtube.com/embed/NubH5BDOaD8?start=115&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
-
+        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Click or Hit Enter to Restart Game</span><iframe class="youtube" width="420" height="315" src="https://www.youtube.com/embed/NubH5BDOaD8?start=115&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+        gamesWon += 1;
+        updateGames();
       }
       if(checkLose()){
         loseScreen.classList.add('frame-down');
-        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Restart Game</span><iframe class="youtube" width="560" height="315" src="https://www.youtube.com/embed/TnOdAT6H94s?start=128&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Click or Hit Enter to Restart Game</span><iframe class="youtube" width="560" height="315" src="https://www.youtube.com/embed/TnOdAT6H94s?start=128&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+        gamesLost += 1;
+        updateGames();
       }
+    }else if(event.code == 'Enter'){
+      getRandomWord();
     }else{
       //flash indicator with warning;
       wrong_audio.play();
@@ -139,6 +176,10 @@
     }
   }
 
+  function updateGames(){
+    document.querySelector('#wins').innerHTML = gamesWon;
+    document.querySelector('#losses').innerHTML = gamesLost;
+  }
   function flashWarn( warning ){
     indicator.innerHTML += '<br>' + warning + '!';
     indicator.classList.add('indicator-red');
@@ -154,7 +195,7 @@
     window.setTimeout( function(){ indicator.classList.remove('indicator-green'); } , 750);
   }
   window.addEventListener('keypress', handleKey);
-  winScreen.addEventListener('click', initializeGame);
-  loseScreen.addEventListener('click', initializeGame);
-  initializeGame();
+  winScreen.addEventListener('click', getRandomWord);
+  loseScreen.addEventListener('click', getRandomWord);
+  restart.addEventListener('click', getRandomWord);
 }());

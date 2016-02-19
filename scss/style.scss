@@ -1,3 +1,6 @@
+$red-color: rgba(192, 103, 103, 1);
+$green-color: rgba(103, 192, 120, 1);
+
 body {
   color: white;
   text-align: center;
@@ -15,23 +18,23 @@ body {
 .game-board{
 }
 @keyframes gr-bg-fade{
-  0% { background-color: rgba(103, 192, 120, 1); }
+  0% { background-color: $green-color; }
   50% { background-color: rgba(57, 106, 66, 1); }
-  100% { background-color: rgba(103, 192, 120, 1); }
+  100% { background-color: $green-color; }
 }
 @keyframes rd-bg-fade{
-  0% { background-color: rgba(192, 103, 103, 1); }
+  0% { background-color: $red-color; }
   50% { background-color: rgba(205, 73, 73, 1); }
-  100% { background-color: rgba(192, 103, 103, 1); }
+  100% { background-color: $red-color; }
 }
 @keyframes frame-down{
   0% { bottom: 100%; }
   100% { bottom: 0%; }
 }
 // @keyframes flash-red{
-//   0% { color: rgba(192, 103, 103, 1); }
+//   0% { color: $red-color; }
 //   10% { color: rgba(205, 73, 73, 1); }
-//   25% { color: rgba(192, 103, 103, 1); }
+//   25% { color: $red-color; }
 //   100% { color: white; }
 // }
 .indicator{
@@ -39,10 +42,10 @@ body {
   transition: .25s ease-in-out;
 }
 .indicator-red{
-  color: rgba(192, 103, 103, 1);
+  color: $red-color;
 }
 .indicator-green{
-  color: rgba(103, 192, 120, 1);
+  color: $green-color;
 }
 .guessed-letters{
   max-width: 600px;
@@ -61,10 +64,10 @@ body {
   // border-bottom: 1px solid white;
 }
 .letter-correct{
-  color: rgba(103, 192, 120, 1);
+  color: $green-color;
 }
 .letter-wrong{
-  color: rgba(192, 103, 103, 1);
+  color: $red-color;
 }
 .letter-not-guessed{
   color: #333;
@@ -105,3 +108,32 @@ body {
 }
 .winner{   animation-name: gr-bg-fade; }
 .loser{ animation-name: rd-bg-fade }
+.restart{
+  width: 75%;
+  margin: 0 auto;
+  line-height: 50px;
+  vertical-align: middle;
+  margin-top: 25px;
+  background: rgba(52, 62, 77, 1);
+  height: 50px;
+}
+.wins, .losses{
+  position: absolute;
+  width: 10%;
+  top: 0;
+  padding: 10px;
+  bottom: 80%;
+}
+.losses{
+  right: 0;
+  background: $red-color;
+}
+.wins{
+  left: 0;
+  background: $green-color;
+}
+#wins, #losses{
+  display: block;
+  font-size: 90px;
+  line-height: 90px;
+}

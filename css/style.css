@@ -101,4 +101,33 @@ body {
 .loser {
   animation-name: rd-bg-fade; }
 
+.restart {
+  width: 75%;
+  margin: 0 auto;
+  line-height: 50px;
+  vertical-align: middle;
+  margin-top: 25px;
+  background: #343e4d;
+  height: 50px; }
+
+.wins, .losses {
+  position: absolute;
+  width: 10%;
+  top: 0;
+  padding: 10px;
+  bottom: 80%; }
+
+.losses {
+  right: 0;
+  background: #c06767; }
+
+.wins {
+  left: 0;
+  background: #67c078; }
+
+#wins, #losses {
+  display: block;
+  font-size: 90px;
+  line-height: 90px; }
+
 /*# sourceMappingURL=style.css.map */

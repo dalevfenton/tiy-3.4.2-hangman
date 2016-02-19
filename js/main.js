@@ -28,9 +28,13 @@
     numGuesses = 10;
     outputToBoard();
     updateIndicator();
-    winScreen.style.top = '-50%';
-    loseScreen.style.top = '-50%';
-    console.log(alphabetObj);
+    winScreen.innerHTML = '';
+    loseScreen.innerHTML = '';
+    winScreen.style.bottom = '';
+    winScreen.classList.remove('frame-down');
+    loseScreen.classList.remove('frame-down');
+    // loseScreen.style.top = '-50%';
+    // console.log(alphabetObj);
     console.log(randomWord);
   }
   function outputToBoard(  ){
@@ -48,14 +52,18 @@
     indicator.innerHTML = 'Number of Guesses Left: ' + numGuesses;
     alphaOutput = '';
     _.each(alphabetObj, function(value, indexVal, arr){
+      var prefix = '<span class="letter ';
+      if(value.isVowel === true){
+        prefix += 'letter-vowel';
+      }
       if(value.guessed === true){
         if(value.correct === true){
-          alphaOutput += '<span class="letter letter-correct">' + indexVal + '</span>';
+          alphaOutput += prefix + ' letter-correct">' + indexVal + '</span>';
         }else{
-          alphaOutput += '<span class="letter letter-wrong">' + indexVal + '</span>';
+          alphaOutput += prefix + ' letter-wrong">' + indexVal + '</span>';
         }
       }else{
-        alphaOutput += '<span class="letter"></span>';
+        alphaOutput += prefix + ' letter-not-guessed">' + indexVal + '</span>';
       }
     });
     guessLetters.innerHTML = alphaOutput;
@@ -90,14 +98,17 @@
       updateIndicator();
       outputToBoard();
       if(checkWin()){
-        winScreen.style.top = '10%';
+        winScreen.classList.add('frame-down');
+        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Restart Game</span>';
+
       }
       if(checkLose()){
-        loseScreen.style.top = '10%';
+        loseScreen.classList.add('frame-down');
+        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Restart Game</span>';  }
       }
-    }else{
-      console.log('not a valid letter');
-    }
+    // }else{
+    //   console.log('not a valid letter');
+    // }
   }
   window.addEventListener('keypress', handleKey);
   winScreen.addEventListener('click', initializeGame);

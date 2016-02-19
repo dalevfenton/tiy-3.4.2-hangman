@@ -1,42 +1,80 @@
 body {
   color: white;
   text-align: center;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  background: #343e4d;
+  font-family: 'Raleway', sans-serif; }
 
 .container {
   width: 75%;
   padding: 50px 0;
   margin: 0 auto;
-  background: #333; }
+  background: #333;
+  position: relative; }
 
+@keyframes gr-bg-fade {
+  0% {
+    background-color: #67c078; }
+  50% {
+    background-color: #396a42; }
+  100% {
+    background-color: #67c078; } }
+@keyframes rd-bg-fade {
+  0% {
+    background-color: #c06767; }
+  50% {
+    background-color: #396a42; }
+  100% {
+    background-color: #c06767; } }
+@keyframes frame-down {
+  0% {
+    bottom: 100%; }
+  100% {
+    bottom: 0%; } }
 .indicator {
-  padding: 50px 0; }
+  padding: 50px 0;
+  transition: .5s ease-in-out; }
+
+.guessed-letters {
+  max-width: 600px;
+  margin: 0 auto; }
 
 .letter {
   display: inline-block;
+  background: #343e4d;
   width: 50px;
   height: 30px;
   margin-right: 15px;
   font-size: 30px;
-  padding: 10px 10px 2px 10px;
-  border: 1px solid #555;
-  border-bottom: 1px solid white; }
+  padding: 10px 10px 10px 10px;
+  margin-bottom: 10px; }
 
 .letter-correct {
-  border: 1px solid green; }
+  color: #67c078; }
 
 .letter-wrong {
-  border: 1px solid red; }
+  color: #c06767; }
+
+.letter-not-guessed {
+  color: #333; }
+
+.letter-vowel {
+  background: #576880; }
+
+.frame-down {
+  bottom: 0 !important; }
 
 .winner, .loser {
   position: absolute;
-  left: 25%;
-  right: 25%;
-  top: -50%;
-  width: 50%;
-  height: 300px;
-  transition: .5s ease-in; }
-  .winner span, .winner .restart-game, .loser span, .loser .restart-game {
+  left: 0;
+  top: 0;
+  bottom: 100%;
+  width: 100%;
+  transition: .5s ease-in;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  overflow: hidden; }
+  .winner .restart-game, .loser .restart-game {
     display: block;
     font-weight: bold;
     color: white;
@@ -45,15 +83,13 @@ body {
     left: 10%;
     right: 10%;
     background-color: rgba(0, 0, 0, 0.75); }
-  .winner span, .loser span {
-    top: 100px; }
   .winner .restart-game, .loser .restart-game {
     top: 200px; }
 
 .winner {
-  background: green; }
+  animation-name: gr-bg-fade; }
 
 .loser {
-  background: red; }
+  animation-name: rd-bg-fade; }
 
 /*# sourceMappingURL=style.css.map */

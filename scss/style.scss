@@ -2,43 +2,78 @@ body {
   color: white;
   text-align: center;
   text-transform: uppercase;
+  background: rgba(52, 62, 77, 1);
+  font-family: 'Raleway', sans-serif;
 }
 .container{
   width: 75%;
   padding: 50px 0;
   margin: 0 auto;
   background: #333;
+  position: relative;
 }
 .game-board{
 }
+@keyframes gr-bg-fade{
+  0% { background-color: rgba(103, 192, 120, 1); }
+  50% { background-color: rgba(57, 106, 66, 1); }
+  100% { background-color: rgba(103, 192, 120, 1); }
+}
+@keyframes rd-bg-fade{
+  0% { background-color: rgba(192, 103, 103, 1); }
+  50% { background-color: rgba(57, 106, 66, 1); }
+  100% { background-color: rgba(192, 103, 103, 1); }
+}
+@keyframes frame-down{
+  0% { bottom: 100%; }
+  100% { bottom: 0%; }
+}
 .indicator{
   padding: 50px 0;
+  transition: .5s ease-in-out;
+}
+.guessed-letters{
+  max-width: 600px;
+  margin: 0 auto;
 }
 .letter{
   display: inline-block;
+  background: rgba(52, 62, 77, 1);
   width: 50px;
   height: 30px;
   margin-right: 15px;
   font-size: 30px;
-  padding: 10px 10px 2px 10px;
-  border: 1px solid #555;
-  border-bottom: 1px solid white;
+  padding: 10px 10px 10px 10px;
+  margin-bottom: 10px;
+  // border: 1px solid #555;
+  // border-bottom: 1px solid white;
 }
 .letter-correct{
-  border: 1px solid green;
+  color: rgba(103, 192, 120, 1);
 }
 .letter-wrong{
-  border: 1px solid red;
+  color: rgba(192, 103, 103, 1);
+}
+.letter-not-guessed{
+  color: #333;
+}
+.letter-vowel{
+  background: rgba(87, 104, 128, 1);
+}
+.frame-down{
+  bottom: 0 !important;
 }
 .winner, .loser{
   position: absolute;
-  left: 25%;
-  right: 25%;
-  top: -50%;
-  width: 50%;
-  height: 300px;
+  left: 0;
+  top: 0;
+  bottom: 100%;
+  width: 100%;
   transition: .5s ease-in;
-  span, .restart-game{
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  overflow: hidden;
+  .restart-game{
     display: block;
     font-weight: bold;
     color: white;
@@ -48,12 +83,10 @@ body {
     right: 10%;
     background-color: rgba(0,0,0, .75);
   }
-  span{
-    top: 100px;
-  }
+
   .restart-game{
     top: 200px;
   }
 }
-.winner{ background: green; }
-.loser{ background: red; }
+.winner{   animation-name: gr-bg-fade; }
+.loser{ animation-name: rd-bg-fade }

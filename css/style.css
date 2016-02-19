@@ -22,4 +22,38 @@ body {
   border: 1px solid #555;
   border-bottom: 1px solid white; }
 
+.letter-correct {
+  border: 1px solid green; }
+
+.letter-wrong {
+  border: 1px solid red; }
+
+.winner, .loser {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: -50%;
+  width: 50%;
+  height: 300px;
+  transition: .5s ease-in; }
+  .winner span, .winner .restart-game, .loser span, .loser .restart-game {
+    display: block;
+    font-weight: bold;
+    color: white;
+    padding: 20px;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    background-color: rgba(0, 0, 0, 0.75); }
+  .winner span, .loser span {
+    top: 100px; }
+  .winner .restart-game, .loser .restart-game {
+    top: 200px; }
+
+.winner {
+  background: green; }
+
+.loser {
+  background: red; }
+
 /*# sourceMappingURL=style.css.map */

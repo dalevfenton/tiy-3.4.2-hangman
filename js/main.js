@@ -25,12 +25,16 @@ function getRandomWord(){
     dataType: "jsonp"
   }).done(function(data){
     initializeGame( data );
+  }).fail(function(obj, status, error){
+    console.log(obj);
+    console.log(status);
+    console.log(error);
   });
 }
 getRandomWord();
 
   //declare variables
-  var randomWord, numGuesses, alphabetObj;
+  var randomWord, numGuesses, alphabetObj, letterNodes;
   var gamesWon = 0;
   var gamesLost = 0;
   var gameBoard = document.querySelector('.game-board');
@@ -48,7 +52,7 @@ getRandomWord();
   function initializeGame(word){
     console.log(word.Word);
     restart_audio.play();
-    randomWord =  word.Word;
+    randomWord =  word.Word.toLowerCase();
     alphabetObj = new Alphabet();
     numGuesses = 10;
     outputToBoard();
@@ -58,10 +62,22 @@ getRandomWord();
     winScreen.style.bottom = '';
     winScreen.classList.remove('frame-down');
     loseScreen.classList.remove('frame-down');
-    // loseScreen.style.top = '-50%';
-    // console.log(alphabetObj);
-    // console.log(randomWord);
-  }
+    alphaOutput = '';
+    _.each(alphabetObj, function(value, indexVal, arr){
+      var prefix = '<span id="Key' + indexVal + '" class="letter';
+      if(value.isVowel === true){
+          prefix += ' letter-vowel';
+        }
+      alphaOutput += prefix + ' letter-not-guessed">' + indexVal + '</span>';
+      });
+      guessLetters.innerHTML = alphaOutput;
+    letterNodes = document.getElementsByClassName('letter-not-guessed');
+    _.each(letterNodes, function(value){
+      value.addEventListener('click', handleClick);
+    });
+    console.log(letterNodes);
+
+    }
 
   function outputToBoard(  ){
     var outputStr = '';
@@ -75,28 +91,42 @@ getRandomWord();
     gameBoard.innerHTML = outputStr;
   }
 
-  function updateIndicator(){
+  function updateIndicator( keyVal ){
     //Main Indicator Window
     indicator.innerHTML = 'Number of Guesses Left: ' + numGuesses;
-    alphaOutput = '';
+    if( keyVal !== undefined ){
+      var selector = "#Key" + keyVal;
+      // console.log(selector);
+      var keyElem = document.querySelector(selector);
+      // console.log(keyElem);
+      if(alphabetObj[keyVal].guessed === true){
+        keyElem.classList.remove('letter-not-guessed');
+        if(alphabetObj[keyVal].correct === true){
+          keyElem.classList.add('letter-correct');
+        }else{
+          keyElem.classList.add('letter-wrong');
+        }
+    }
+    }
+
 
     //Update our Alphabet Display with Guessed Letters
-    _.each(alphabetObj, function(value, indexVal, arr){
-      var prefix = '<span class="letter ';
-      if(value.isVowel === true){
-        prefix += 'letter-vowel';
-      }
-      if(value.guessed === true){
-        if(value.correct === true){
-          alphaOutput += prefix + ' letter-correct">' + indexVal + '</span>';
-        }else{
-          alphaOutput += prefix + ' letter-wrong">' + indexVal + '</span>';
-        }
-      }else{
-        alphaOutput += prefix + ' letter-not-guessed">' + indexVal + '</span>';
-      }
-    });
-    guessLetters.innerHTML = alphaOutput;
+    // _.each(alphabetObj, function(value, indexVal, arr){
+    //   var prefix = '<span class="letter ';
+    //   if(value.isVowel === true){
+    //     prefix += 'letter-vowel';
+    //   }
+    //   if(value.guessed === true){
+    //     if(value.correct === true){
+    //       alphaOutput += prefix + ' letter-correct">' + indexVal + '</span>';
+    //     }else{
+    //       alphaOutput += prefix + ' letter-wrong">' + indexVal + '</span>';
+    //     }
+    //   }else{
+    //     alphaOutput += prefix + ' letter-not-guessed">' + indexVal + '</span>';
+    //   }
+    // });
+    // guessLetters.innerHTML = alphaOutput;
   }
 
   function checkWin(){
@@ -118,15 +148,23 @@ getRandomWord();
     return lose;
   }
 
-
+  function handleClick(){
+    var clickObj = {code:this.id };
+    handleInput(clickObj);
+  }
   function handleKey (){
-    if(event.code.slice(0,3) == "Key"){
-      var key = event.code.slice(3,4).toLowerCase();
+    var keyObj = event;
+    handleInput(keyObj);
+  }
+
+  function handleInput(inputObj){
+    if(inputObj.code.slice(0,3) == "Key"){
+      var key = inputObj.code.slice(3,4).toLowerCase();
       // console.log('key is: ' + event.code.slice(3,4));
       if(alphabetObj[key].guessed === true){
         //key was already guessed
         wrong_audio.play();
-        updateIndicator();
+        updateIndicator( );
         flashWarn('You Already Guessed That Letter');
       }else{
         alphabetObj[key].guessed = true;
@@ -134,14 +172,14 @@ getRandomWord();
           //key was correct
           alphabetObj[key].correct = true;
           right_audio.play();
-          updateIndicator();
+          updateIndicator( key );
           flashGood('You Were Correct');
         }else{
           //letter was incorrect
           wrong_audio.play();
-          updateIndicator();
-          flashWarn('Sorry That Letter Is Not Correct');
           numGuesses--;
+          updateIndicator( key );
+          flashWarn('Sorry That Letter Is Not Correct');
         }
       }
 
@@ -167,11 +205,11 @@ getRandomWord();
       flashWarn('Not A Letter');
     }
   }
-
   function updateGames(){
     document.querySelector('#wins').innerHTML = gamesWon;
     document.querySelector('#losses').innerHTML = gamesLost;
   }
+
   function flashWarn( warning ){
     indicator.innerHTML += '<br>' + warning + '!';
     indicator.classList.add('indicator-red');

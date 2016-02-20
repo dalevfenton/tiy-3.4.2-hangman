@@ -131,13 +131,6 @@ $wins-losses-size: 40px;
 //       LAYOUT ELEMENTS & GLOBAL STYLES  -- MEDIUM & DESKTOP SCREENS
 //------------------------------------------------------------------------------
 @media (min-width: 600px) {
-  .container{
-    width: 75%;
-    padding: 50px 0;
-    margin: 0 auto;
-    background: $background-color-cont;
-    position: relative;
-  }
   .indicator{
     padding: 50px 0;
     transition: .25s ease-in-out;
@@ -149,12 +142,10 @@ $wins-losses-size: 40px;
   .letter{
     display: inline-block;
     background: $background-color-body;
-    width: 50px;
-    height: 30px;
-    margin-right: 15px;
     font-size: 30px;
-    padding: 10px 10px 10px 10px;
-    margin-bottom: 10px;
+    line-height: 30px;
+    height: 40px;
+    padding-top: 10px;
   }
   .winner, .loser{
     position: absolute;
@@ -181,23 +172,8 @@ $wins-losses-size: 40px;
   .youtube{
     margin-top: 10px;
   }
-  .wins, .losses{
-    position: absolute;
-    width: 10%;
-    top: 0;
-    padding: 10px;
-    bottom: 80%;
-  }
-  .losses{
-    right: 0;
-    background: $red-color;
-  }
-  .wins{
-    left: 0;
-    background: $green-color;
-  }
+
   #wins, #losses{
-    display: block;
     font-size: 90px;
     line-height: 90px;
   }

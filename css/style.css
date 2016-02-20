@@ -113,13 +113,6 @@ body {
   height: 50px; }
 
 @media (min-width: 600px) {
-  .container {
-    width: 75%;
-    padding: 50px 0;
-    margin: 0 auto;
-    background: #333;
-    position: relative; }
-
   .indicator {
     padding: 50px 0;
     transition: .25s ease-in-out; }
@@ -131,12 +124,10 @@ body {
   .letter {
     display: inline-block;
     background: #343e4d;
-    width: 50px;
-    height: 30px;
-    margin-right: 15px;
     font-size: 30px;
-    padding: 10px 10px 10px 10px;
-    margin-bottom: 10px; }
+    line-height: 30px;
+    height: 40px;
+    padding-top: 10px; }
 
   .winner, .loser {
     position: absolute;
@@ -162,23 +153,7 @@ body {
   .youtube {
     margin-top: 10px; }
 
-  .wins, .losses {
-    position: absolute;
-    width: 10%;
-    top: 0;
-    padding: 10px;
-    bottom: 80%; }
-
-  .losses {
-    right: 0;
-    background: #c06767; }
-
-  .wins {
-    left: 0;
-    background: #67c078; }
-
   #wins, #losses {
-    display: block;
     font-size: 90px;
     line-height: 90px; }
 

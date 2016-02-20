@@ -1,22 +1,16 @@
+//------------------------------------------------------------------------------
+//                            VARIABLES AND MIXINS
+//------------------------------------------------------------------------------
+//--------color palette--------------
 $red-color: rgba(192, 103, 103, 1);
 $green-color: rgba(103, 192, 120, 1);
+$background-color-cont: #333;
+$background-color-body: rgba(52, 62, 77, 1);
+$vowel-bg-color: lighten($background-color-cont, 20%);
 
-body {
-  color: white;
-  text-align: center;
-  text-transform: uppercase;
-  background: rgba(52, 62, 77, 1);
-  font-family: 'Raleway', sans-serif;
-}
-.container{
-  width: 75%;
-  padding: 50px 0;
-  margin: 0 auto;
-  background: #333;
-  position: relative;
-}
-.game-board{
-}
+//------------------------------------------------------------------------------
+//                                  ANIMATIONS
+//------------------------------------------------------------------------------
 @keyframes gr-bg-fade{
   0% { background-color: $green-color; }
   50% { background-color: rgba(57, 106, 66, 1); }
@@ -31,52 +25,55 @@ body {
   0% { bottom: 100%; }
   100% { bottom: 0%; }
 }
-// @keyframes flash-red{
-//   0% { color: $red-color; }
-//   10% { color: rgba(205, 73, 73, 1); }
-//   25% { color: $red-color; }
-//   100% { color: white; }
-// }
+
+//------------------------------------------------------------------------------
+//       LAYOUT ELEMENTS & GLOBAL STYLES  -- MOBILE & SMALL SCREENS
+//------------------------------------------------------------------------------
+.clear{
+  clear: both;
+}
+body {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  background: $background-color-body;
+  font-family: 'Raleway', sans-serif;
+}
+.container{
+  width: 90%;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  background: $background-color-cont;
+  position: relative;
+}
+.game-board{
+  margin: 50px auto 0 auto;
+  width: 90%;
+}
 .indicator{
-  padding: 50px 0;
+  padding: 20px 0;
   transition: .25s ease-in-out;
-}
-.indicator-red{
-  color: $red-color;
-}
-.indicator-green{
-  color: $green-color;
 }
 .guessed-letters{
   max-width: 600px;
   margin: 0 auto;
 }
 .letter{
+  content: '';
   display: inline-block;
-  background: rgba(52, 62, 77, 1);
-  width: 50px;
+  background: $background-color-body;
+  box-sizing: padding-box;
+  width: 10%;
   height: 30px;
-  margin-right: 15px;
-  font-size: 30px;
-  padding: 10px 10px 10px 10px;
+  margin-right: 5px;
+  font-size: 18px;
+  line-height: 22px;
+  vertical-align: middle;
+  padding-top: 5px;
   margin-bottom: 10px;
-  // border: 1px solid #555;
-  // border-bottom: 1px solid white;
-}
-.letter-correct{
-  color: $green-color;
-}
-.letter-wrong{
-  color: $red-color;
-}
-.letter-not-guessed{
-  color: #333;
-}
-.letter-vowel{
-  background: rgba(87, 104, 128, 1);
-}
-.frame-down{
-  bottom: 0 !important;
+  &:last-of-type{
+    margin-right: 0;
+  }
 }
 .winner, .loser{
   position: absolute;
@@ -96,18 +93,31 @@ body {
     position: absolute;
     left: 10%;
     right: 10%;
-    background-color: rgba(0,0,0, .75);
-  }
-
-  .restart-game{
     top: 350px;
+    background-color: rgba(0,0,0, .75);
   }
 }
 .youtube{
   margin-top: 10px;
 }
-.winner{   animation-name: gr-bg-fade; }
-.loser{ animation-name: rd-bg-fade }
+.wins, .losses{
+  width: 50%;
+  padding: 10px 0;
+}
+.losses{
+  float: right;
+  background: $red-color;
+}
+.wins{
+  float: left;
+  background: $green-color;
+}
+$wins-losses-size: 40px;
+#wins, #losses{
+  display: block;
+  font-size: $wins-losses-size;
+  line-height: $wins-losses-size;
+}
 .restart{
   width: 75%;
   margin: 0 auto;
@@ -117,23 +127,103 @@ body {
   background: rgba(52, 62, 77, 1);
   height: 50px;
 }
-.wins, .losses{
-  position: absolute;
-  width: 10%;
-  top: 0;
-  padding: 10px;
-  bottom: 80%;
+//------------------------------------------------------------------------------
+//       LAYOUT ELEMENTS & GLOBAL STYLES  -- MEDIUM & DESKTOP SCREENS
+//------------------------------------------------------------------------------
+@media (min-width: 600px) {
+  .container{
+    width: 75%;
+    padding: 50px 0;
+    margin: 0 auto;
+    background: $background-color-cont;
+    position: relative;
+  }
+  .indicator{
+    padding: 50px 0;
+    transition: .25s ease-in-out;
+  }
+  .guessed-letters{
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .letter{
+    display: inline-block;
+    background: $background-color-body;
+    width: 50px;
+    height: 30px;
+    margin-right: 15px;
+    font-size: 30px;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+  }
+  .winner, .loser{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 100%;
+    width: 100%;
+    transition: .5s ease-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    overflow: hidden;
+    .restart-game{
+      display: block;
+      font-weight: bold;
+      color: white;
+      padding: 20px;
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 350px;
+      background-color: rgba(0,0,0, .75);
+    }
+  }
+  .youtube{
+    margin-top: 10px;
+  }
+  .wins, .losses{
+    position: absolute;
+    width: 10%;
+    top: 0;
+    padding: 10px;
+    bottom: 80%;
+  }
+  .losses{
+    right: 0;
+    background: $red-color;
+  }
+  .wins{
+    left: 0;
+    background: $green-color;
+  }
+  #wins, #losses{
+    display: block;
+    font-size: 90px;
+    line-height: 90px;
+  }
+  .restart{
+    width: 75%;
+    margin: 0 auto;
+    line-height: 50px;
+    vertical-align: middle;
+    margin-top: 25px;
+    background: rgba(52, 62, 77, 1);
+    height: 50px;
+  }
 }
-.losses{
-  right: 0;
-  background: $red-color;
-}
-.wins{
-  left: 0;
-  background: $green-color;
-}
-#wins, #losses{
-  display: block;
-  font-size: 90px;
-  line-height: 90px;
-}
+
+
+//------------------------------------------------------------------------------
+//                DECORATIVE & SINGLE ITEM STYLES
+//------------------------------------------------------------------------------
+
+
+.letter-correct{ color: $green-color; }
+.letter-wrong{ color: $red-color; }
+.letter-not-guessed{ color: $background-color-cont; }
+.letter-vowel{ background: $vowel-bg-color; }
+.frame-down{ bottom: 0 !important; }
+.winner{   animation-name: gr-bg-fade; }
+.loser{ animation-name: rd-bg-fade }
+.indicator-red{ color: $red-color; }
+.indicator-green{ color: $green-color; }

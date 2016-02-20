@@ -28,15 +28,7 @@ function getRandomWord(){
   });
 }
 getRandomWord();
-// var apiWord = RandomWord();
-  //     function RandomWordComplete(data) {
-  //         console.dir(data);
-  //     }
-  // for(var i=0; i<10; i++){
-  //   RandomWord().done( function(result){
-  //     console.log(result);
-  //   });
-  // }
+
   //declare variables
   var randomWord, numGuesses, alphabetObj;
   var gamesWon = 0;
@@ -157,13 +149,13 @@ getRandomWord();
 
       if(checkWin()){
         winScreen.classList.add('frame-down');
-        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Click or Hit Enter to Restart Game</span><iframe class="youtube" width="420" height="315" src="https://www.youtube.com/embed/NubH5BDOaD8?start=115&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+        winScreen.innerHTML = '<span class="win-msg restart-game">Great Job!</br>Click or Hit Enter to Restart Game</br>The Word Was: ' + randomWord + '</span><iframe class="youtube" width="420" height="315" src="https://www.youtube.com/embed/NubH5BDOaD8?start=115&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
         gamesWon += 1;
         updateGames();
       }
       if(checkLose()){
         loseScreen.classList.add('frame-down');
-        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Click or Hit Enter to Restart Game</span><iframe class="youtube" width="560" height="315" src="https://www.youtube.com/embed/TnOdAT6H94s?start=128&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+        loseScreen.innerHTML = '<span class="lose-msg restart-game">Sorry You Didn\'t Win</br>Please Try Again!</br>Click or Hit Enter to Restart Game</br>The Word Was: ' + randomWord + '</span><iframe class="youtube" width="560" height="315" src="https://www.youtube.com/embed/TnOdAT6H94s?start=128&controls=0&amp;showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
         gamesLost += 1;
         updateGames();
       }

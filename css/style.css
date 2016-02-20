@@ -1,17 +1,3 @@
-body {
-  color: white;
-  text-align: center;
-  text-transform: uppercase;
-  background: #343e4d;
-  font-family: 'Raleway', sans-serif; }
-
-.container {
-  width: 75%;
-  padding: 50px 0;
-  margin: 0 auto;
-  background: #333;
-  position: relative; }
-
 @keyframes gr-bg-fade {
   0% {
     background-color: #67c078; }
@@ -31,44 +17,50 @@ body {
     bottom: 100%; }
   100% {
     bottom: 0%; } }
+.clear {
+  clear: both; }
+
+body {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  background: #343e4d;
+  font-family: 'Raleway', sans-serif; }
+
+.container {
+  width: 90%;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  background: #333;
+  position: relative; }
+
+.game-board {
+  margin: 50px auto 0 auto;
+  width: 90%; }
+
 .indicator {
-  padding: 50px 0;
+  padding: 20px 0;
   transition: .25s ease-in-out; }
-
-.indicator-red {
-  color: #c06767; }
-
-.indicator-green {
-  color: #67c078; }
 
 .guessed-letters {
   max-width: 600px;
   margin: 0 auto; }
 
 .letter {
+  content: '';
   display: inline-block;
   background: #343e4d;
-  width: 50px;
+  box-sizing: padding-box;
+  width: 10%;
   height: 30px;
-  margin-right: 15px;
-  font-size: 30px;
-  padding: 10px 10px 10px 10px;
+  margin-right: 5px;
+  font-size: 18px;
+  line-height: 22px;
+  vertical-align: middle;
+  padding-top: 5px;
   margin-bottom: 10px; }
-
-.letter-correct {
-  color: #67c078; }
-
-.letter-wrong {
-  color: #c06767; }
-
-.letter-not-guessed {
-  color: #333; }
-
-.letter-vowel {
-  background: #576880; }
-
-.frame-down {
-  bottom: 0 !important; }
+  .letter:last-of-type {
+    margin-right: 0; }
 
 .winner, .loser {
   position: absolute;
@@ -88,18 +80,28 @@ body {
     position: absolute;
     left: 10%;
     right: 10%;
+    top: 350px;
     background-color: rgba(0, 0, 0, 0.75); }
-  .winner .restart-game, .loser .restart-game {
-    top: 350px; }
 
 .youtube {
   margin-top: 10px; }
 
-.winner {
-  animation-name: gr-bg-fade; }
+.wins, .losses {
+  width: 50%;
+  padding: 10px 0; }
 
-.loser {
-  animation-name: rd-bg-fade; }
+.losses {
+  float: right;
+  background: #c06767; }
+
+.wins {
+  float: left;
+  background: #67c078; }
+
+#wins, #losses {
+  display: block;
+  font-size: 40px;
+  line-height: 40px; }
 
 .restart {
   width: 75%;
@@ -110,24 +112,109 @@ body {
   background: #343e4d;
   height: 50px; }
 
-.wins, .losses {
-  position: absolute;
-  width: 10%;
-  top: 0;
-  padding: 10px;
-  bottom: 80%; }
+@media (min-width: 600px) {
+  .container {
+    width: 75%;
+    padding: 50px 0;
+    margin: 0 auto;
+    background: #333;
+    position: relative; }
 
-.losses {
-  right: 0;
-  background: #c06767; }
+  .indicator {
+    padding: 50px 0;
+    transition: .25s ease-in-out; }
 
-.wins {
-  left: 0;
-  background: #67c078; }
+  .guessed-letters {
+    max-width: 600px;
+    margin: 0 auto; }
 
-#wins, #losses {
-  display: block;
-  font-size: 90px;
-  line-height: 90px; }
+  .letter {
+    display: inline-block;
+    background: #343e4d;
+    width: 50px;
+    height: 30px;
+    margin-right: 15px;
+    font-size: 30px;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px; }
+
+  .winner, .loser {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 100%;
+    width: 100%;
+    transition: .5s ease-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    overflow: hidden; }
+    .winner .restart-game, .loser .restart-game {
+      display: block;
+      font-weight: bold;
+      color: white;
+      padding: 20px;
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 350px;
+      background-color: rgba(0, 0, 0, 0.75); }
+
+  .youtube {
+    margin-top: 10px; }
+
+  .wins, .losses {
+    position: absolute;
+    width: 10%;
+    top: 0;
+    padding: 10px;
+    bottom: 80%; }
+
+  .losses {
+    right: 0;
+    background: #c06767; }
+
+  .wins {
+    left: 0;
+    background: #67c078; }
+
+  #wins, #losses {
+    display: block;
+    font-size: 90px;
+    line-height: 90px; }
+
+  .restart {
+    width: 75%;
+    margin: 0 auto;
+    line-height: 50px;
+    vertical-align: middle;
+    margin-top: 25px;
+    background: #343e4d;
+    height: 50px; } }
+.letter-correct {
+  color: #67c078; }
+
+.letter-wrong {
+  color: #c06767; }
+
+.letter-not-guessed {
+  color: #333; }
+
+.letter-vowel {
+  background: #666666; }
+
+.frame-down {
+  bottom: 0 !important; }
+
+.winner {
+  animation-name: gr-bg-fade; }
+
+.loser {
+  animation-name: rd-bg-fade; }
+
+.indicator-red {
+  color: #c06767; }
+
+.indicator-green {
+  color: #67c078; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,10 +1,12 @@
 (function(){
 
 //POSSIBLE FEATURES TO ADD:
-//TOGGLE FOR SOUND EFFECTS
-//TOGGLE FOR PHRASE VS SINGLE WORD
+// TOGGLE FOR SOUND EFFECTS
+// TOGGLE FOR PHRASE VS SINGLE WORD
 // :HOVER AND :ACTIVE STYLES AND MOUSE POINTER FOR BUTTONS
-//TRY AT CSS OF HANG MAN
+// TRY AT CSS OF HANG MAN
+// COUNT WIN STREAK & REDUCE COUNTER OF GUESSES FOR EVERY GAME WON IN THE STREAK
+// ADD HINT THAT PROVIDES DICTIONARY INFORMATION ON 2 GUESSES OR LESS
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //------------------------------------------------------------------------------
@@ -38,7 +40,7 @@ document.querySelector('#losses').innerHTML = gamesLost;
 //pulls a random word between 9 and 4 letters long from setgetgo
 //when the request returns a word, then we initialize the game
 function getRandomWord(){
-  var length =  Math.floor(6*Math.random() + 4);
+  var length =  Math.floor(5*Math.random() + 4);
   $.ajax({
     type: "GET",
     url: ('http://randomword.setgetgo.com/get.php'),
